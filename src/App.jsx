@@ -3,6 +3,7 @@ import Customer from "./Customer";
 import Kitchen from "./Kitchen";
 import Waiter from "./Waiter";
 import Admin from "./Admin";
+import Cashier from "./Cashier";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/kitchen" element={<Kitchen />} />
         <Route path="/waiter" element={<Waiter />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/cashier" element={<Cashier />} />
       </Routes>
     </BrowserRouter>
   );
