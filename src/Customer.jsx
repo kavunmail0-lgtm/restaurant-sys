@@ -12,13 +12,23 @@ function Customer() {
   const [cart, setCart] = useState([]);
   const [orderId, setOrderId] = useState(null);
   const [orderStatus, setOrderStatus] = useState("");
+  const [menu, setMenu] = useState([]);
 
-  const menu = [
-    { name: "Burger", price: 120 },
-    { name: "Pizza", price: 250 },
-    { name: "Coke", price: 40 },
-    { name: "French Fries", price: 90 }
-  ];
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "menu"),
+      (snapshot) => {
+        const menuData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setMenu(menuData);
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
 
   const addToCart = (item) => {
     const existing = cart.find((i) => i.name === item.name);
@@ -87,7 +97,7 @@ function Customer() {
 
       {menu.map((item) => (
         <div
-          key={item.name}
+          key={item.id}
           style={{
             border: "1px solid #ccc",
             padding: "10px",
