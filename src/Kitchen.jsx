@@ -46,11 +46,17 @@ function Kitchen() {
     return () => unsubscribe();
   }, []);
 
+  const kitchenOrders = orders.filter(
+    (order) =>
+      order.status !== "Ready" &&
+      order.status !== "Served"
+  );
+
   return (
     <div style={{ padding: "20px" }}>
       <h1>Kitchen Dashboard</h1>
 
-      {orders.map((order) => (
+      {kitchenOrders.map((order) => (
         <div
           key={order.id}
           style={{
