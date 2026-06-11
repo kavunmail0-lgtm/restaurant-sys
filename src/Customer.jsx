@@ -46,6 +46,13 @@ function Customer() {
     }
   };
 
+  const getTotal = () => {
+    return cart.reduce(
+      (sum, item) => sum + item.price * item.qty,
+      0
+    );
+  };
+
   const placeOrder = async () => {
     if (cart.length === 0) {
       alert("Cart is empty");
@@ -82,69 +89,151 @@ function Customer() {
   }, [orderId]);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Customer Dashboard</h1>
+    <div
+      style={{
+        maxWidth: "1200px",
+        margin: "auto",
+        padding: "20px"
+      }}
+    >
+      <h1 style={{ textAlign: "center" }}>
+        🍽 Smart Restaurant
+      </h1>
 
-      <div>
-        <label>Table No: </label>
+      <div
+        style={{
+          background: "white",
+          padding: "15px",
+          borderRadius: "12px",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+          marginBottom: "20px"
+        }}
+      >
+        <label>Table Number</label>
+
         <input
           value={tableNo}
           onChange={(e) => setTableNo(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "10px",
+            marginTop: "8px",
+            borderRadius: "8px",
+            border: "1px solid #ddd"
+          }}
         />
       </div>
 
-      <h2>Menu</h2>
+      <h2>🍔 Menu</h2>
 
-      {menu.map((item) => (
-        <div
-          key={item.id}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns:
+            "repeat(auto-fit,minmax(220px,1fr))",
+          gap: "15px"
+        }}
+      >
+        {menu.map((item) => (
+          <div
+            key={item.id}
+            style={{
+              background: "white",
+              borderRadius: "15px",
+              padding: "15px",
+              boxShadow:
+                "0 2px 10px rgba(0,0,0,0.1)"
+            }}
+          >
+            <h3>{item.name}</h3>
+
+            <p
+              style={{
+                fontSize: "18px",
+                fontWeight: "bold"
+              }}
+            >
+              ₹{item.price}
+            </p>
+
+            <button
+              onClick={() => addToCart(item)}
+              style={{
+                background: "#2563eb",
+                color: "white",
+                border: "none",
+                padding: "10px",
+                borderRadius: "8px",
+                cursor: "pointer",
+                width: "100%"
+              }}
+            >
+              Add to Cart
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          background: "white",
+          marginTop: "25px",
+          padding: "20px",
+          borderRadius: "15px",
+          boxShadow:
+            "0 2px 10px rgba(0,0,0,0.1)"
+        }}
+      >
+        <h2>🛒 Cart</h2>
+
+        {cart.length === 0 ? (
+          <p>No items added</p>
+        ) : (
+          cart.map((item) => (
+            <div
+              key={item.name}
+              style={{
+                marginBottom: "8px"
+              }}
+            >
+              {item.name} x {item.qty}
+            </div>
+          ))
+        )}
+
+        <h3 style={{ marginTop: "15px" }}>
+          Total: ₹{getTotal()}
+        </h3>
+
+        <button
+          onClick={placeOrder}
           style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            marginBottom: "10px",
-            borderRadius: "8px"
+            background: "#16a34a",
+            color: "white",
+            border: "none",
+            padding: "12px",
+            borderRadius: "8px",
+            cursor: "pointer",
+            marginTop: "15px",
+            width: "100%"
           }}
         >
-          {item.name} - ₹{item.price}
-
-          <button
-            style={{ marginLeft: "10px" }}
-            onClick={() => addToCart(item)}
-          >
-            Add
-          </button>
-        </div>
-      ))}
-
-      <h2>Cart</h2>
-
-      {cart.length === 0 ? (
-        <p>No items added</p>
-      ) : (
-        cart.map((item) => (
-          <div key={item.name}>
-            {item.name} x {item.qty}
-          </div>
-        ))
-      )}
-
-      <button
-        onClick={placeOrder}
-        style={{ marginTop: "20px" }}
-      >
-        Place Order
-      </button>
+          Place Order
+        </button>
+      </div>
 
       {orderStatus && (
         <div
           style={{
+            background: "white",
             marginTop: "20px",
             padding: "15px",
-            border: "1px solid #ccc",
-            borderRadius: "10px"
+            borderRadius: "15px",
+            boxShadow:
+              "0 2px 10px rgba(0,0,0,0.1)"
           }}
         >
-          <h3>Order Status</h3>
+          <h3>📦 Order Status</h3>
 
           <p>
             {orderStatus === "Pending" && "🟡 Pending"}
