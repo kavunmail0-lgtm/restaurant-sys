@@ -158,8 +158,8 @@ border: "2px solid #fed7aa",
             <p
               style={{
                 fontSize: "18px",
-                fontWeight: "bold"
-                color: "#ea580c"
+                fontWeight: "bold",
+                color: "#ea580c",
               }}
             >
               ₹{item.price}
@@ -274,5 +274,10 @@ border: "2px solid #fed7aa",
     </span>
   )}
 </p>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default Customer;
