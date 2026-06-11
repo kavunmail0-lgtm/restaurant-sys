@@ -96,9 +96,16 @@ function Customer() {
         padding: "20px"
       }}
     >
-      <h1 style={{ textAlign: "center" }}>
-        🍽 Smart Restaurant
-      </h1>
+      <h1
+  style={{
+    textAlign: "center",
+    color: "#ea580c",
+    marginBottom: "20px",
+    fontSize: "42px"
+  }}
+>
+  🍽 Smart Restaurant
+</h1>
 
       <div
         style={{
@@ -138,7 +145,8 @@ function Customer() {
           <div
             key={item.id}
             style={{
-              background: "white",
+             background: "#ffffff",
+border: "2px solid #fed7aa",
               borderRadius: "15px",
               padding: "15px",
               boxShadow:
@@ -151,6 +159,7 @@ function Customer() {
               style={{
                 fontSize: "18px",
                 fontWeight: "bold"
+                color: "#ea580c"
               }}
             >
               ₹{item.price}
@@ -159,7 +168,7 @@ function Customer() {
             <button
               onClick={() => addToCart(item)}
               style={{
-                background: "#2563eb",
+               background: "#f97316",
                 color: "white",
                 border: "none",
                 padding: "10px",
@@ -176,7 +185,7 @@ function Customer() {
 
       <div
         style={{
-          background: "white",
+          background: "#eff6ff",
           marginTop: "25px",
           padding: "20px",
           borderRadius: "15px",
@@ -208,7 +217,7 @@ function Customer() {
         <button
           onClick={placeOrder}
           style={{
-            background: "#16a34a",
+            background: "#22c55e",
             color: "white",
             border: "none",
             padding: "12px",
@@ -225,7 +234,7 @@ function Customer() {
       {orderStatus && (
         <div
           style={{
-            background: "white",
+            background: "#f8fafc",
             marginTop: "20px",
             padding: "15px",
             borderRadius: "15px",
@@ -235,16 +244,35 @@ function Customer() {
         >
           <h3>📦 Order Status</h3>
 
-          <p>
-            {orderStatus === "Pending" && "🟡 Pending"}
-            {orderStatus === "Preparing" && "🟠 Preparing"}
-            {orderStatus === "Ready" && "🟢 Ready"}
-            {orderStatus === "Served" && "✅ Served"}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-}
+<p
+  style={{
+    fontWeight: "bold",
+    fontSize: "18px"
+  }}
+>
+  {orderStatus === "Pending" && (
+    <span style={{ color: "#eab308" }}>
+      🟡 Pending
+    </span>
+  )}
+
+  {orderStatus === "Preparing" && (
+    <span style={{ color: "#f97316" }}>
+      🟠 Preparing
+    </span>
+  )}
+
+  {orderStatus === "Ready" && (
+    <span style={{ color: "#22c55e" }}>
+      🟢 Ready
+    </span>
+  )}
+
+  {orderStatus === "Served" && (
+    <span style={{ color: "#2563eb" }}>
+      ✅ Served
+    </span>
+  )}
+</p>
 
 export default Customer;
