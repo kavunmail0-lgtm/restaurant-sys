@@ -18,19 +18,23 @@ function Customer() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, "menu"),
-      (snapshot) => {
-        const menuData = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+ useEffect(() => {
+  const unsubscribe = onSnapshot(
+    collection(db, "menu"),
+    (snapshot) => {
+      const menuData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
-        setMenu(menuData);
-      }
-    );
-    useEffect(() => {
+      setMenu(menuData);
+    }
+  );
+
+  return () => unsubscribe();
+}, []);
+
+useEffect(() => {
   const unsubscribe = onSnapshot(
     collection(db, "categories"),
     (snapshot) => {
@@ -45,9 +49,6 @@ function Customer() {
 
   return () => unsubscribe();
 }, []);
-
-    return () => unsubscribe();
-  }, []);
 
   const addToCart = (item) => {
     const existing = cart.find((i) => i.name === item.name);
