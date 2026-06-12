@@ -65,7 +65,27 @@ useEffect(() => {
       setCart([...cart, { ...item, qty: 1 }]);
     }
   };
+const increaseQty = (name) => {
+  setCart(
+    cart.map((item) =>
+      item.name === name
+        ? { ...item, qty: item.qty + 1 }
+        : item
+    )
+  );
+};
 
+const decreaseQty = (name) => {
+  setCart(
+    cart
+      .map((item) =>
+        item.name === name
+          ? { ...item, qty: item.qty - 1 }
+          : item
+      )
+      .filter((item) => item.qty > 0)
+  );
+};
   const getTotal = () => {
     return cart.reduce(
       (sum, item) => sum + item.price * item.qty,
