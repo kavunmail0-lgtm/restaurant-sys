@@ -306,15 +306,43 @@ border: "2px solid #fed7aa",
           <p>No items added</p>
         ) : (
           cart.map((item) => (
-            <div
-              key={item.name}
-              style={{
-                marginBottom: "8px"
-              }}
-            >
-              {item.name} x {item.qty}
-            </div>
-          ))
+  <div
+    key={item.name}
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "10px",
+      padding: "10px",
+      background: "#fff",
+      borderRadius: "10px"
+    }}
+  >
+    <div>
+      <strong>{item.name}</strong>
+      <br />
+      ₹{item.price} × {item.qty}
+    </div>
+
+    <div>
+      <button
+        onClick={() => decreaseQty(item.name)}
+      >
+        -
+      </button>
+
+      <span style={{ margin: "0 10px" }}>
+        {item.qty}
+      </span>
+
+      <button
+        onClick={() => increaseQty(item.name)}
+      >
+        +
+      </button>
+    </div>
+  </div>
+))
         )}
 
         <h3 style={{ marginTop: "15px" }}>
