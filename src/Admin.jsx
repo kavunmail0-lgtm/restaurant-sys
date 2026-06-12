@@ -11,7 +11,8 @@ import { db } from "./firebase";
 function Admin() {
   const [menu, setMenu] = useState([]);
   const [categories, setCategories] = useState([]);
-
+const [imageUrl, setImageUrl] = useState("");
+const [inStock, setInStock] = useState(true);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
@@ -74,13 +75,18 @@ function Admin() {
     }
 
     await addDoc(collection(db, "menu"), {
-      name,
-      price: Number(price),
-      category,
-    });
+  name,
+  price: Number(price),
+  category,
+  imageUrl,
+  inStock,
+});
+  
 
     setName("");
     setPrice("");
+    setImageUrl("");
+setInStock(true);
   };
 
   const deleteItem = async (id) => {
@@ -138,16 +144,39 @@ function Admin() {
       />
 
       <select
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        style={{ marginLeft: "10px" }}
-      >
-        {categories.map((cat) => (
-          <option key={cat.id} value={cat.name}>
-            {cat.name}
-          </option>
-        ))}
-      </select>
+  value={category}
+  onChange={(e) => setCategory(e.target.value)}
+  style={{ marginLeft: "10px" }}
+>
+  {categories.map((cat) => (
+    <option key={cat.id} value={cat.name}>
+      {cat.name}
+    </option>
+  ))}
+</select>
+
+<input
+  placeholder="Image URL"
+  value={imageUrl}
+  onChange={(e) => setImageUrl(e.target.value)}
+  style={{ marginLeft: "10px" }}
+/>
+
+<label style={{ marginLeft: "10px" }}>
+  <input
+    type="checkbox"
+    checked={inStock}
+    onChange={(e) => setInStock(e.target.checked)}
+  />
+  In Stock
+</label>
+
+<button
+  onClick={addItem}
+  style={{ marginLeft: "10px" }}
+>
+  Add Dish
+</button>
 
       <button
         onClick={addItem}
@@ -171,9 +200,15 @@ function Admin() {
           }}
         >
           <strong>{item.name}</strong>
-          {" - "}₹{item.price}
-          {" | "}
-          {item.category}
+{" - "}₹{item.price}
+{" | "}
+{item.category}
+
+<br />
+
+{item.inStock
+  ? "✅ Available"
+  : "❌ Out of Stock"}
 
           <button
             onClick={() => deleteItem(item.id)}
