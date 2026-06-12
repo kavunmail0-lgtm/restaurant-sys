@@ -233,20 +233,7 @@ border: "2px solid #fed7aa",
               boxShadow:
                 "0 2px 10px rgba(0,0,0,0.1)"
             }}
-          ><img
-  src={
-    item.imageUrl ||
-    "https://via.placeholder.com/300x200?text=Food"
-  }
-  alt={item.name}
-  style={{
-    width: "100%",
-    height: "160px",
-    objectFit: "cover",
-    borderRadius: "12px",
-    marginBottom: "10px"
-  }}
-/>
+          >
             <h3>{item.name}</h3>
 
             <p
@@ -260,19 +247,25 @@ border: "2px solid #fed7aa",
             </p>
 
             <button
-              onClick={() => addToCart(item)}
-              style={{
-               background: "#f97316",
-                color: "white",
-                border: "none",
-                padding: "10px",
-                borderRadius: "8px",
-                cursor: "pointer",
-                width: "100%"
-              }}
-            >
-              Add to Cart
-            </button>
+  disabled={item.inStock === false}
+  onClick={() => addToCart(item)}
+  style={{
+    background:
+      item.inStock === false
+        ? "#9ca3af"
+        : "#f97316",
+    color: "white",
+    border: "none",
+    padding: "10px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    width: "100%"
+  }}
+>
+  {item.inStock === false
+    ? "Out Of Stock"
+    : "Add To Cart"}
+</button>
           </div>
         ))}
       </div>
