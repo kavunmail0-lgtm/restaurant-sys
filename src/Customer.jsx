@@ -14,6 +14,10 @@ function Customer() {
   const [orderStatus, setOrderStatus] = useState("");
   const [menu, setMenu] = useState([]);
 
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+
   useEffect(() => {
     const unsubscribe = onSnapshot(
       collection(db, "menu"),
@@ -26,6 +30,21 @@ function Customer() {
         setMenu(menuData);
       }
     );
+    useEffect(() => {
+  const unsubscribe = onSnapshot(
+    collection(db, "categories"),
+    (snapshot) => {
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setCategories(data);
+    }
+  );
+
+  return () => unsubscribe();
+}, []);
 
     return () => unsubscribe();
   }, []);
@@ -132,7 +151,55 @@ function Customer() {
       </div>
 
       <h2>🍔 Menu</h2>
+<input
+  type="text"
+  placeholder="🔍 Search Food..."
+  value={searchTerm}
+  onChange={(e) => setSearchTerm(e.target.value)}
+  style={{
+    width: "100%",
+    padding: "12px",
+    marginBottom: "15px",
+    borderRadius: "10px",
+    border: "1px solid #ddd"
+  }}
+/>
 
+<div
+  style={{
+    display: "flex",
+    gap: "10px",
+    flexWrap: "wrap",
+    marginBottom: "20px"
+  }}
+>
+  <button
+    onClick={() => setSelectedCategory("All")}
+    style={{
+      padding: "10px 15px",
+      borderRadius: "20px",
+      border: "none",
+      cursor: "pointer"
+    }}
+  >
+    All
+  </button>
+
+  {categories.map((cat) => (
+    <button
+      key={cat.id}
+      onClick={() => setSelectedCategory(cat.name)}
+      style={{
+        padding: "10px 15px",
+        borderRadius: "20px",
+        border: "none",
+        cursor: "pointer"
+      }}
+    >
+      {cat.name}
+    </button>
+  ))}
+</div>
       <div
         style={{
           display: "grid",
@@ -141,7 +208,20 @@ function Customer() {
           gap: "15px"
         }}
       >
-        {menu.map((item) => (
+        {menu
+  .filter((item) => {
+    const categoryMatch =
+      selectedCategory === "All" ||
+      item.category === selectedCategory;
+
+    const searchMatch =
+      item.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+    return categoryMatch && searchMatch;
+  })
+  .map((item) => (
           <div
             key={item.id}
             style={{
