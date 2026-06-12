@@ -206,9 +206,9 @@ setInStock(true);
 
 <br />
 
-{item.inStock
+item.inStock !== false
   ? "✅ Available"
-  : "❌ Out of Stock"}
+  : "❌ Out of Stock"
 
           <button
             onClick={() => deleteItem(item.id)}
