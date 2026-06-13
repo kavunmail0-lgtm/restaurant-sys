@@ -115,34 +115,43 @@ setInStock(true);
 </h1>
 
 
-      <h2>📂 Categories</h2>
+      <div
+  style={{
+    background: "white",
+    padding: "20px",
+    borderRadius: "20px",
+    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+    marginBottom: "20px"
+  }}
+>
+  <h2>📂 Categories</h2>
 
-      <input
-        placeholder="Category Name"
-        value={newCategory}
-        onChange={(e) => setNewCategory(e.target.value)}
-      />
+  <input
+    placeholder="Category Name"
+    value={newCategory}
+    onChange={(e) => setNewCategory(e.target.value)}
+  />
+
+  <button
+    onClick={addCategory}
+    style={{ marginLeft: "10px" }}
+  >
+    Add Category
+  </button>
+
+  {categories.map((cat) => (
+    <div key={cat.id} style={{ marginTop: "10px" }}>
+      {cat.name}
 
       <button
-        onClick={addCategory}
+        onClick={() => deleteCategory(cat.id)}
         style={{ marginLeft: "10px" }}
       >
-        Add Category
+        Delete
       </button>
-
-      {categories.map((cat) => (
-        <div key={cat.id} style={{ marginTop: "10px" }}>
-          {cat.name}
-
-          <button
-            onClick={() => deleteCategory(cat.id)}
-            style={{ marginLeft: "10px" }}
-          >
-            Delete
-          </button>
-        </div>
-      ))}
-
+    </div>
+  ))}
+</div>
       <hr style={{ margin: "25px 0" }} />
       <div
   style={{
@@ -200,11 +209,20 @@ setInStock(true);
 
 
       <button
-        onClick={addItem}
-        style={{ marginLeft: "10px" }}
-      >
-        Add Dish
-      </button>
+  onClick={addItem}
+  style={{
+    marginLeft: "10px",
+    background: "#f97316",
+    color: "white",
+    border: "none",
+    padding: "10px 18px",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontWeight: "bold"
+  }}
+>
+  ➕ Add Dish
+</button>
 </div>
       <h2 style={{ marginTop: "25px" }}>
         📋 Menu Items
@@ -246,11 +264,19 @@ setInStock(true);
 
 
           <button
-            onClick={() => deleteItem(item.id)}
-            style={{ marginLeft: "10px" }}
-          >
-            Delete
-          </button>
+  onClick={() => deleteItem(item.id)}
+  style={{
+    marginLeft: "10px",
+    background: "#ef4444",
+    color: "white",
+    border: "none",
+    padding: "8px 14px",
+    borderRadius: "8px",
+    cursor: "pointer"
+  }}
+>
+  🗑 Delete
+</button>
         </div>
       ))}
     </div>
