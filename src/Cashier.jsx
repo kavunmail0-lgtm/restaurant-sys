@@ -1,3 +1,4 @@
+import jsPDF from "jspdf";
 import { useEffect, useState } from "react";
 import {
   collection,
@@ -37,12 +38,43 @@ function Cashier() {
     );
   };
 
+  const totalRevenue = orders.reduce(
+  (sum, order) => sum + getTotal(order.items),
+  0
+);
+
   const markPaid = async (id) => {
   await updateDoc(doc(db, "orders", id), {
     status: "Paid",
   });
 
   alert("Payment Completed");
+};
+
+const downloadBill = (order) => {
+  const pdf = new jsPDF();
+
+  pdf.text("Restaurant Bill", 20, 20);
+  pdf.text(`Table: ${order.tableNo}`, 20, 35);
+
+  let y = 50;
+
+  order.items.forEach((item) => {
+    pdf.text(
+      `${item.name} x ${item.qty} = ₹${item.price * item.qty}`,
+      20,
+      y
+    );
+    y += 10;
+  });
+
+  pdf.text(
+    `Total: ₹${getTotal(order.items)}`,
+    20,
+    y + 10
+  );
+
+  pdf.save(`Bill-Table-${order.tableNo}.pdf`);
 };
 
   return (
@@ -55,7 +87,7 @@ function Cashier() {
     minHeight: "100vh"
   }}
 >
-      <h1
+  <h1
   style={{
     textAlign: "center",
     color: "#16a34a",
@@ -65,6 +97,40 @@ function Cashier() {
 >
   💰 Cashier Dashboard
 </h1>
+
+     <div
+  style={{
+    display: "flex",
+    gap: "15px",
+    marginBottom: "20px"
+  }}
+>
+  <div
+    style={{
+      background: "white",
+      padding: "20px",
+      borderRadius: "15px",
+      flex: 1,
+      boxShadow: "0 4px 12px rgba(0,0,0,0.08)"
+    }}
+  >
+    <h3>Total Orders</h3>
+    <h2>{orders.length}</h2>
+  </div>
+
+  <div
+    style={{
+      background: "white",
+      padding: "20px",
+      borderRadius: "15px",
+      flex: 1,
+      boxShadow: "0 4px 12px rgba(0,0,0,0.08)"
+    }}
+  >
+    <h3>Total Revenue</h3>
+    <h2>₹{totalRevenue}</h2>
+  </div>
+</div>
 
       {orders.length === 0 && (
         <p
@@ -133,6 +199,22 @@ function Cashier() {
 >
   💳 Mark Paid
 </button>
+
+<button
+  onClick={() => downloadBill(order)}
+  style={{
+    marginLeft: "10px",
+    background: "#2563eb",
+    color: "white",
+    border: "none",
+    padding: "12px 18px",
+    borderRadius: "10px",
+    cursor: "pointer"
+  }}
+>
+  📄 Download Bill
+</button>
+
         </div>
       ))}
     </div>
