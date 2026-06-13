@@ -57,26 +57,61 @@ function Waiter() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>👨‍🍳 Waiter Dashboard</h1>
+    <div
+  style={{
+    maxWidth: "1200px",
+    margin: "auto",
+    padding: "20px",
+    background: "#f8fafc",
+    minHeight: "100vh"
+  }}
+>
+      <h1
+  style={{
+    textAlign: "center",
+    color: "#22c55e",
+    fontSize: "42px",
+    marginBottom: "30px"
+  }}
+>
+  🤵 Waiter Dashboard
+</h1>
 
       {orders.length === 0 && (
-        <p>No Ready Orders</p>
+        <p
+  style={{
+    textAlign: "center",
+    fontSize: "18px",
+    color: "#64748b"
+  }}
+>
+  🚫 No Ready Orders
+</p>
       )}
 
       {orders.map((order) => (
         <div
           key={order.id}
           style={{
-            border: "1px solid #ccc",
-            borderRadius: "10px",
-            padding: "15px",
-            marginBottom: "15px",
-          }}
+  background: "white",
+  borderRadius: "20px",
+  padding: "20px",
+  marginBottom: "15px",
+  boxShadow: "0 8px 20px rgba(0,0,0,0.08)"
+}}
         >
-          <h3>Table {order.tableNo}</h3>
+         <h3>
+  🍽 Table {order.tableNo}
+</h3>
 
-          <p>Status: {order.status}</p>
+          <p
+  style={{
+    fontWeight: "bold",
+    color: "#22c55e"
+  }}
+>
+  🟢 Ready To Serve
+</p>
 
           <h4>Items</h4>
 
@@ -86,14 +121,21 @@ function Waiter() {
             </div>
           ))}
 
-          <button
-            onClick={() => markServed(order.id)}
-            style={{
-              marginTop: "10px",
-            }}
-          >
-            Served
-          </button>
+         <button
+  onClick={() => markServed(order.id)}
+  style={{
+    marginTop: "15px",
+    background: "#2563eb",
+    color: "white",
+    border: "none",
+    padding: "12px 18px",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontWeight: "bold"
+  }}
+>
+  ✅ Mark Served
+</button>
         </div>
       ))}
     </div>
