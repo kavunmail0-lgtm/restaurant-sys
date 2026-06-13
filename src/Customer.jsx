@@ -335,21 +335,61 @@ border: "2px solid #fed7aa",
     </div>
 
     <div>
-      <button
-        onClick={() => decreaseQty(item.name)}
-      >
-        -
-      </button>
+      <div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    background: "#f8fafc",
+    padding: "6px",
+    borderRadius: "30px"
+  }}
+>
+  <button
+    onClick={() => decreaseQty(item.name)}
+    style={{
+      width: "35px",
+      height: "35px",
+      borderRadius: "50%",
+      border: "none",
+      cursor: "pointer",
+      fontSize: "18px",
+      fontWeight: "bold",
+      background: "#ef4444",
+      color: "white"
+    }}
+  >
+    −
+  </button>
 
-      <span style={{ margin: "0 10px" }}>
-        {item.qty}
-      </span>
+  <span
+    style={{
+      minWidth: "25px",
+      textAlign: "center",
+      fontWeight: "bold",
+      fontSize: "18px"
+    }}
+  >
+    {item.qty}
+  </span>
 
-      <button
-        onClick={() => increaseQty(item.name)}
-      >
-        +
-      </button>
+  <button
+    onClick={() => increaseQty(item.name)}
+    style={{
+      width: "35px",
+      height: "35px",
+      borderRadius: "50%",
+      border: "none",
+      cursor: "pointer",
+      fontSize: "18px",
+      fontWeight: "bold",
+      background: "#22c55e",
+      color: "white"
+    }}
+  >
+    +
+  </button>
+</div>
     </div>
   </div>
 ))
