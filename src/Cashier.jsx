@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  doc,
+  updateDoc
+} from "firebase/firestore";
 import { db } from "./firebase";
 
 function Cashier() {
@@ -31,6 +36,14 @@ function Cashier() {
       0
     );
   };
+
+  const markPaid = async (id) => {
+  await updateDoc(doc(db, "orders", id), {
+    status: "Paid",
+  });
+
+  alert("Payment Completed");
+};
 
   return (
     <div
@@ -105,14 +118,21 @@ function Cashier() {
 
           <hr />
 
-          <h3
+         <button
+  onClick={() => markPaid(order.id)}
   style={{
-    color: "#16a34a",
-    fontSize: "24px"
+    background: "#16a34a",
+    color: "white",
+    border: "none",
+    padding: "12px 18px",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontWeight: "bold",
+    marginTop: "10px"
   }}
 >
-  💰 Total: ₹{getTotal(order.items)}
-</h3>
+  💳 Mark Paid
+</button>
         </div>
       ))}
     </div>
