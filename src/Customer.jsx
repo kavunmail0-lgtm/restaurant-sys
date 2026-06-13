@@ -17,6 +17,7 @@ function Customer() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+const [showMenu, setShowMenu] = useState(false);
 
  useEffect(() => {
   const unsubscribe = onSnapshot(
@@ -172,6 +173,24 @@ const decreaseQty = (name) => {
       </div>
 
       <h2>🍔 Menu</h2>
+
+<button
+  onClick={() => setShowMenu(!showMenu)}
+  style={{
+    background: "#f97316",
+    color: "white",
+    border: "none",
+    padding: "15px 25px",
+    borderRadius: "12px",
+    cursor: "pointer",
+    fontSize: "18px",
+    fontWeight: "bold",
+    marginBottom: "20px"
+  }}
+>
+  📋 {showMenu ? "Close Menu" : "Open Menu"}
+</button>
+
 <input
   type="text"
   placeholder="🔍 Search Food..."
@@ -185,7 +204,7 @@ const decreaseQty = (name) => {
     border: "1px solid #ddd"
   }}
 />
-
+{showMenu && (
 <div
   style={{
     display: "flex",
@@ -210,7 +229,8 @@ const decreaseQty = (name) => {
       {cat.name}
     </button>
   ))}
-</div>
+</div>)}
+{showMenu && selectedCategory && (
       <div
         style={{
           display: "grid",
@@ -289,6 +309,7 @@ border: "2px solid #fed7aa",
           </div>
         ))}
       </div>
+      )}
 
       <div
         style={{
