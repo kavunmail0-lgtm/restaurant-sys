@@ -15,7 +15,7 @@ function Customer() {
   const [menu, setMenu] = useState([]);
 
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
  useEffect(() => {
@@ -222,8 +222,8 @@ const decreaseQty = (name) => {
         {menu
   .filter((item) => {
     const categoryMatch =
-      selectedCategory === "All" ||
-      item.category === selectedCategory;
+  !selectedCategory ||
+  item.category === selectedCategory;
 
     const searchMatch =
       item.name
