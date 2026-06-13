@@ -144,11 +144,19 @@ setInStock(true);
       {cat.name}
 
       <button
-        onClick={() => deleteCategory(cat.id)}
-        style={{ marginLeft: "10px" }}
-      >
-        Delete
-      </button>
+  onClick={() => deleteItem(item.id)}
+  style={{
+    marginLeft: "10px",
+    background: "#ef4444",
+    color: "white",
+    border: "none",
+    padding: "8px 14px",
+    borderRadius: "8px",
+    cursor: "pointer"
+  }}
+>
+  🗑 Delete
+</button>
     </div>
   ))}
 </div>
