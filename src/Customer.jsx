@@ -194,17 +194,7 @@ const decreaseQty = (name) => {
     marginBottom: "20px"
   }}
 >
-  <button
-    onClick={() => setSelectedCategory("All")}
-    style={{
-      padding: "10px 15px",
-      borderRadius: "20px",
-      border: "none",
-      cursor: "pointer"
-    }}
-  >
-    All
-  </button>
+  
 
   {categories.map((cat) => (
     <button
