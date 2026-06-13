@@ -53,22 +53,44 @@ function Kitchen() {
   );
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Kitchen Dashboard</h1>
-
+    <div
+  style={{
+    maxWidth: "1200px",
+    margin: "auto",
+    padding: "20px",
+    background: "#f8fafc",
+    minHeight: "100vh"
+  }}
+>
+      <h1
+  style={{
+    textAlign: "center",
+    color: "#f97316",
+    fontSize: "42px",
+    marginBottom: "30px"
+  }}
+>
+  👨‍🍳 Kitchen Dashboard
+</h1>
       {kitchenOrders.map((order) => (
         <div
           key={order.id}
           style={{
-            border: "1px solid #ccc",
-            padding: "15px",
-            marginBottom: "10px",
-            borderRadius: "10px",
-          }}
+  background: "white",
+  padding: "20px",
+  marginBottom: "15px",
+  borderRadius: "20px",
+  boxShadow: "0 8px 20px rgba(0,0,0,0.08)"
+}}
         >
-          <h3>Table {order.tableNo}</h3>
+          <h3>
+  🍽 Table {order.tableNo}
+</h3>
 
-          <p>Status: {order.status}</p>
+          <p style={{ fontWeight: "bold" }}>
+  {order.status === "Pending" && "🟡 Pending"}
+  {order.status === "Preparing" && "🟠 Preparing"}
+</p>
 
           {order.items?.map((item, index) => (
             <div key={index}>
@@ -78,17 +100,35 @@ function Kitchen() {
 
           <div style={{ marginTop: "10px" }}>
             <button
-              onClick={() => updateStatus(order.id, "Preparing")}
-            >
-              Preparing
-            </button>
+  onClick={() => updateStatus(order.id, "Preparing")}
+  style={{
+    background: "#f97316",
+    color: "white",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontWeight: "bold"
+  }}
+>
+  🟠 Preparing
+</button>
 
-            <button
-              onClick={() => updateStatus(order.id, "Ready")}
-              style={{ marginLeft: "10px" }}
-            >
-              Ready
-            </button>
+           <button
+  onClick={() => updateStatus(order.id, "Ready")}
+  style={{
+    marginLeft: "10px",
+    background: "#22c55e",
+    color: "white",
+    border: "none",
+    padding: "10px 16px",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontWeight: "bold"
+  }}
+>
+  ✅ Ready
+</button>
           </div>
         </div>
       ))}
