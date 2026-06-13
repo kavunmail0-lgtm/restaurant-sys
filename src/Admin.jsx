@@ -133,11 +133,20 @@ setInStock(true);
   />
 
   <button
-    onClick={addCategory}
-    style={{ marginLeft: "10px" }}
-  >
-    Add Category
-  </button>
+  onClick={addCategory}
+  style={{
+    marginLeft: "10px",
+    background: "#22c55e",
+    color: "white",
+    border: "none",
+    padding: "10px 18px",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontWeight: "bold"
+  }}
+>
+  ➕ Add Category
+</button>
 
   {categories.map((cat) => (
     <div key={cat.id} style={{ marginTop: "10px" }}>
