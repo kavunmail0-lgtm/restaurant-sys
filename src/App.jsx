@@ -4,6 +4,7 @@ import Kitchen from "./Kitchen";
 import Waiter from "./Waiter";
 import Admin from "./Admin";
 import Cashier from "./Cashier";
+import Login from "./Login";
 
 function App() {
   return (
@@ -11,9 +12,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Customer />} />
         <Route path="/customer" element={<Customer />} />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/admin" element={<Admin />} />
         <Route path="/kitchen" element={<Kitchen />} />
         <Route path="/waiter" element={<Waiter />} />
-        <Route path="/admin" element={<Admin />} />
         <Route path="/cashier" element={<Cashier />} />
       </Routes>
     </BrowserRouter>
