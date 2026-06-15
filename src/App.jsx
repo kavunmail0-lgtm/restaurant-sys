@@ -5,6 +5,8 @@ import Waiter from "./Waiter";
 import Admin from "./Admin";
 import Cashier from "./Cashier";
 import Login from "./Login";
+import Login from "./Login";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
@@ -15,10 +17,41 @@ function App() {
 
         <Route path="/login" element={<Login />} />
 
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/kitchen" element={<Kitchen />} />
-        <Route path="/waiter" element={<Waiter />} />
-        <Route path="/cashier" element={<Cashier />} />
+        <Route
+  path="/admin"
+  element={
+    <ProtectedRoute role="admin">
+      <Admin />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/kitchen"
+  element={
+    <ProtectedRoute role="kitchen">
+      <Kitchen />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/waiter"
+  element={
+    <ProtectedRoute role="waiter">
+      <Waiter />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/cashier"
+  element={
+    <ProtectedRoute role="cashier">
+      <Cashier />
+    </ProtectedRoute>
+  }
+/>
       </Routes>
     </BrowserRouter>
   );
