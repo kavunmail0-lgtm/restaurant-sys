@@ -5,7 +5,6 @@ import Waiter from "./Waiter";
 import Admin from "./Admin";
 import Cashier from "./Cashier";
 import Login from "./Login";
-import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
