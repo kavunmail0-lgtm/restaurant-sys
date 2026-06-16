@@ -18,6 +18,9 @@ const [inStock, setInStock] = useState(true);
   const [category, setCategory] = useState("");
 
   const [newCategory, setNewCategory] = useState("");
+const [editingId, setEditingId] = useState(null);
+const [editName, setEditName] = useState("");
+const [editPrice, setEditPrice] = useState("");
 
   useEffect(() => {
     const unsubMenu = onSnapshot(
@@ -279,6 +282,24 @@ setInStock(true);
   ? "✅ Available"
   : "❌ Out of Stock"}
 
+<button
+  onClick={() => {
+    setEditingId(item.id);
+    setEditName(item.name);
+    setEditPrice(item.price);
+  }}
+  style={{
+    background: "#2563eb",
+    color: "white",
+    border: "none",
+    padding: "8px 14px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    marginTop: "10px"
+  }}
+>
+  ✏️ Edit
+</button>
 
           <button
   onClick={() => deleteItem(item.id)}
@@ -294,6 +315,33 @@ setInStock(true);
 >
   🗑 Delete
 </button>
+{editingId === item.id && (
+  <div style={{ marginTop: "15px" }}>
+    <input
+      value={editName}
+      onChange={(e) => setEditName(e.target.value)}
+      placeholder="Dish Name"
+      style={{
+        padding: "8px",
+        borderRadius: "8px",
+        border: "1px solid #ccc"
+      }}
+    />
+
+    <input
+      type="number"
+      value={editPrice}
+      onChange={(e) => setEditPrice(e.target.value)}
+      placeholder="Price"
+      style={{
+        padding: "8px",
+        borderRadius: "8px",
+        border: "1px solid #ccc",
+        marginLeft: "10px"
+      }}
+    />
+  </div>
+)}
         </div>
       ))}
     </div>
