@@ -4,7 +4,8 @@ import {
   addDoc,
   deleteDoc,
   doc,
-  onSnapshot
+  onSnapshot,
+  updateDoc
 } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -21,6 +22,7 @@ const [inStock, setInStock] = useState(true);
 const [editingId, setEditingId] = useState(null);
 const [editName, setEditName] = useState("");
 const [editPrice, setEditPrice] = useState("");
+const [editImageUrl, setEditImageUrl] = useState("");
 
   useEffect(() => {
     const unsubMenu = onSnapshot(
@@ -95,6 +97,15 @@ setInStock(true);
   const deleteItem = async (id) => {
     await deleteDoc(doc(db, "menu", id));
   };
+  const updateItem = async (id) => {
+  await updateDoc(doc(db, "menu", id), {
+    name: editName,
+    price: Number(editPrice),
+    imageUrl: editImageUrl,
+  });
+
+  setEditingId(null);
+};
 
   return (
     <div
@@ -287,6 +298,7 @@ setInStock(true);
     setEditingId(item.id);
     setEditName(item.name);
     setEditPrice(item.price);
+    setEditImageUrl(item.imageUrl || "");
   }}
   style={{
     background: "#2563eb",
@@ -302,7 +314,7 @@ setInStock(true);
 </button>
 
           <button
-  onClick={() => deleteItem(item.id)}
+  onClick={() => deleteCategory(cat.id)}  
   style={{
     marginLeft: "10px",
     background: "#ef4444",
@@ -317,6 +329,7 @@ setInStock(true);
 </button>
 {editingId === item.id && (
   <div style={{ marginTop: "15px" }}>
+
     <input
       value={editName}
       onChange={(e) => setEditName(e.target.value)}
@@ -340,8 +353,39 @@ setInStock(true);
         marginLeft: "10px"
       }}
     />
+
+    {/* ✅ IMAGE URL INPUT ADDED */}
+    <input
+      value={editImageUrl}
+      onChange={(e) => setEditImageUrl(e.target.value)}
+      placeholder="Image URL"
+      style={{
+        padding: "8px",
+        borderRadius: "8px",
+        border: "1px solid #ccc",
+        marginLeft: "10px"
+      }}
+    />
+
+    {/* ✅ SAVE BUTTON */}
+    <button
+      onClick={() => updateItem(item.id)}
+      style={{
+        marginTop: "10px",
+        background: "#16a34a",
+        color: "white",
+        border: "none",
+        padding: "8px 14px",
+        borderRadius: "8px",
+        cursor: "pointer",
+        display: "block"
+      }}
+    >
+      💾 Save
+    </button>
+
   </div>
-)}
+)}  
         </div>
       ))}
     </div>
