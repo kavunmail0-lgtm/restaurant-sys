@@ -6,6 +6,8 @@ import Admin from "./Admin";
 import Cashier from "./Cashier";
 import Login from "./Login";
 import ProtectedRoute from "./ProtectedRoute";
+import OrderHistory from "./OrderHistory";
+import SalesReport from "./SalesReport";
 
 function App() {
   return (
@@ -24,7 +26,6 @@ function App() {
     </ProtectedRoute>
   }
 />
-
 <Route
   path="/kitchen"
   element={
@@ -50,7 +51,10 @@ function App() {
       <Cashier />
     </ProtectedRoute>
   }
-/>
+/> 
+<Route path="/history" element={<OrderHistory />} />
+<Route path="/sales" element={<SalesReport />} />
+
       </Routes>
     </BrowserRouter>
   );
