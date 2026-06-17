@@ -8,6 +8,7 @@ import {
   updateDoc
 } from "firebase/firestore";
 import { db } from "./firebase";
+import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const [menu, setMenu] = useState([]);
@@ -23,6 +24,8 @@ const [editingId, setEditingId] = useState(null);
 const [editName, setEditName] = useState("");
 const [editPrice, setEditPrice] = useState("");
 const [editImageUrl, setEditImageUrl] = useState("");
+const [showMenu, setShowMenu] = useState(false);
+const navigate = useNavigate();
 
   useEffect(() => {
     const unsubMenu = onSnapshot(
@@ -128,6 +131,71 @@ setInStock(true);
   👨‍💼 Admin Dashboard
 </h1>
 
+<div
+  style={{
+    display: "flex",
+    justifyContent: "flex-end",
+    position: "relative",
+    marginBottom: "20px"
+  }}
+>
+  <button
+    onClick={() => setShowMenu(!showMenu)}
+    style={{
+      border: "none",
+      background: "white",
+      fontSize: "24px",
+      cursor: "pointer",
+      borderRadius: "10px",
+      padding: "5px 12px"
+    }}
+  >
+    ⋮
+  </button>
+
+  {showMenu && (
+    <div
+      style={{
+        position: "absolute",
+        top: "40px",
+        right: "0",
+        background: "white",
+        borderRadius: "10px",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+        overflow: "hidden",
+        zIndex: 1000
+      }}
+    >
+      <button
+        onClick={() => navigate("/history")}
+        style={{
+          display: "block",
+          width: "100%",
+          padding: "12px 20px",
+          border: "none",
+          background: "white",
+          cursor: "pointer"
+        }}
+      >
+        📜 Order History
+      </button>
+
+      <button
+        onClick={() => navigate("/sales")}
+        style={{
+          display: "block",
+          width: "100%",
+          padding: "12px 20px",
+          border: "none",
+          background: "white",
+          cursor: "pointer"
+        }}
+      >
+        💰 Sales Report
+      </button>
+    </div>
+  )}
+</div>
 
       <div
   style={{
@@ -167,7 +235,7 @@ setInStock(true);
       {cat.name}
 
       <button
-  onClick={() => deleteItem(item.id)}
+  onClick={() => deleteCategory(cat.id)}
   style={{
     marginLeft: "10px",
     background: "#ef4444",
@@ -314,7 +382,7 @@ setInStock(true);
 </button>
 
           <button
-  onClick={() => deleteCategory(cat.id)}  
+  onClick={() => deleteItem(item.id)}
   style={{
     marginLeft: "10px",
     background: "#ef4444",
