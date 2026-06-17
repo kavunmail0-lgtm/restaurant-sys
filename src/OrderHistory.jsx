@@ -6,6 +6,7 @@ function OrderHistory() {
   const [orders, setOrders] = useState([]);
 const [selectedDate, setSelectedDate] = useState("");
 const [selectedOrders, setSelectedOrders] = useState([]);
+const [deleteMode, setDeleteMode] = useState(false);
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "orders"), (snapshot) => {
@@ -36,6 +37,7 @@ const totalOrders = orders.length;
       <h1>📜 Order History</h1>
 
 <button
+  onClick={() => setDeleteMode(!deleteMode)}
   style={{
     background: "#ef4444",
     color: "white",
@@ -46,7 +48,7 @@ const totalOrders = orders.length;
     marginBottom: "20px"
   }}
 >
-  🗑 Delete Selected
+  {deleteMode ? "❌ Cancel Delete" : "🗑 Delete Orders"}
 </button>
 
 <select
@@ -118,24 +120,27 @@ const totalOrders = orders.length;
             borderRadius: "10px",
           }}
         >
-          <input
-  type="checkbox"
-  checked={selectedOrders.includes(order.id)}
-  onChange={(e) => {
-    if (e.target.checked) {
-      setSelectedOrders([
-        ...selectedOrders,
-        order.id,
-      ]);
-    } else {
-      setSelectedOrders(
-        selectedOrders.filter(
-          (id) => id !== order.id
-        )
-      );
-    }
-  }}
-/>
+         {deleteMode && (
+  <input
+    type="checkbox"
+    checked={selectedOrders.includes(order.id)}
+    onChange={(e) => {
+      if (e.target.checked) {
+        setSelectedOrders([
+          ...selectedOrders,
+          order.id,
+        ]);
+      } else {
+        setSelectedOrders(
+          selectedOrders.filter(
+            (id) => id !== order.id
+          )
+        );
+      }
+    }}
+  />
+)}
+/
 
           <h3>🍽 Table {order.tableNo}</h3>
 
