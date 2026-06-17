@@ -100,12 +100,17 @@ const decreaseQty = (name) => {
       return;
     }
 
-    const docRef = await addDoc(collection(db, "orders"), {
-      tableNo: Number(tableNo),
-      items: cart,
-      status: "Pending",
-      createdAt: new Date()
-    });
+   const now = new Date();
+
+const docRef = await addDoc(collection(db, "orders"), {
+  tableNo: Number(tableNo),
+  items: cart,
+  status: "Pending",
+
+  createdAt: now.getTime(),
+  orderDate: now.toLocaleDateString(),
+  orderTime: now.toLocaleTimeString(),
+});
 
     setOrderId(docRef.id);
     setOrderStatus("Pending");
